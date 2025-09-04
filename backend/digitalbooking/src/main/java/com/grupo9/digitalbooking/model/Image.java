@@ -39,7 +39,7 @@ public class Image {
         this.title = title;
         this.url = url;
         this.product = product;
-    }*/
+    */
 
     public Integer getId() {
         return id;

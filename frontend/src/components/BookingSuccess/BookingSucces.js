@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import style from '../BookingSuccess/BookingSucces.module.css';
+import style from './BookingSucces.module.css';
 
-const NewProductSuccessful = () => {
+const BookingSucces = () => {
   const navigate = useNavigate();
 
   return (
@@ -23,17 +23,17 @@ const NewProductSuccessful = () => {
           </svg>
         </div>
         <div className={style.text}>
-          {/* <h1 className={style.gratefulness}>¡Muchas gracias!</h1> */}
+          <h1 className={style.gratefulness}>¡Muchas gracias!</h1>
           <p className={style.successful}>
-            Tu propiedad se ha creado con éxito
+            Su reserva se ha realizado con éxito
           </p>
         </div>
         <button className="btn btn2" onClick={() => navigate('/')}>
-          Ir a home
+          Ok
         </button>
       </div>
     </div>
   );
 };
 
-export default NewProductSuccessful;
+export default BookingSucces;

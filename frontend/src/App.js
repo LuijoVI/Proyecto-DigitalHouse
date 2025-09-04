@@ -9,6 +9,8 @@ import Home from './components/Home/Home';
 import UserContextProvider from './context/UserContext';
 import ProductDetailCointaner from './components/ProductDetailContainer/ProductDetailCointaner';
 import DateRangeProvider from './context/DateRangeContext';
+import ProductBooking from './pages/ProductBooking/ProductBooking';
+import BookingSucces from './components/BookingSuccess/BookingSucces';
 import NotFound from './pages/NotFound/NotFound';
 import Administration from './pages/Administration/Administration';
 import NewProductSuccessful from './components/NewProductSuccessful/NewProductSuccessful';
@@ -31,6 +33,8 @@ function App() {
                 path="/products/:id"
                 element={<ProductDetailCointaner />}
               />
+              <Route path="/product/:id/booking" element={<ProductBooking />} />
+              <Route path="/booking/success" element={<BookingSucces />} />
               <Route path="/administration" element={<Administration />} />
               <Route
                 path="/successful-new-product"
