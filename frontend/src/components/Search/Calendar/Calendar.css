@@ -4,6 +4,26 @@
   border-radius: 0px 0px 5px 5px;
 }
 
+.customInput {
+  background: #ffffff;
+    color: rgb(49 54 63 / 50%);
+    font-size: 1.3rem;
+    font-weight: 500;
+    width: 100%;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.2s ease all;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    height: 40px;
+    position: relative;
+    border: 2px solid transparent;
+}
+
 .react-datepicker__header {
   background-color: var(--white-color);
 }
