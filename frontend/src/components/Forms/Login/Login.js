@@ -33,6 +33,7 @@ const Login = () => {
   }, [userInfo?.redirect, logoutUser]);
 
   const handleSubmit = (e) => {
+    console.log('handleSubmit');
     e.preventDefault();
     setIsFormValid(true);
 
@@ -48,6 +49,7 @@ const Login = () => {
     }
 
     if (email.valid === 'true' && password.valid === 'true') {
+      console.log('Enviando formulario');
       const data = {
         email: email.value,
         password: password.value,

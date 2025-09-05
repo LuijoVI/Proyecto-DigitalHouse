@@ -1,13 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,300&display=swap');
 
 :root {
-  --primary-color: #f0572d; /* orange-color */
-  --primary-color-hover: #d33c13;
-  --secondary-color: #31363f; /* dark-grey-color */
-  --thirth-color: #191b1d; /* dark-cyanblue-color */
-  --light-grey-color: #dfe4ea;
-  --white-color: #ffffff;
-  --red-color: #ff0000;
+--color-primario: #8A5A44;       /* Terracota profundo */
+--color-primario-hover: #5a301e; /* Terracota oscuro */
+--color-secundario: #e78e49;     /* Arena tostada */
+--color-secundario-hover: #d44b11; /* Arena tostada oscura */
+--fondo-principal: #fef6ed;      /* Blanco Calido */
+--fondo-alterno: #ffeedf;        /* Beige blanco */
+--texto-principal: #582E1A;      /* Marrón oscuro */
+--texto-secundario: #6F3F28;     /* Marrón medio */
+--acento: #C98C5A;               /* Ocre suave */
+--error: #A94442;                /* Rojo tierra */
+--exito: #7D9A6D;                /* Verde oliva suave */
 }
 
 * {
@@ -25,7 +29,7 @@
 
 body {
   height: 100vh;
-  background-color: var(--white-color);
+  background-color: var(--fondo-principal);
 }
 
 a {
