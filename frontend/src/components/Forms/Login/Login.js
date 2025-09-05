@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Input from '../Input/Input';
 import style from '../Form.module.css';
+import logo from '../../../assets/Logo2.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { userContext } from '../../../context/UserContext';
 import baseUrl from '../../../utils/baseUrl.json';
@@ -92,6 +93,7 @@ const Login = () => {
         <Spinner />
       ) : (
         <form className={style.form} onSubmit={handleSubmit}>
+          <img className={style.logo} src={logo} alt="logo" />
           <h1 className={style.titleForm}>Iniciar Sesión</h1>
           <div>
             <Input
