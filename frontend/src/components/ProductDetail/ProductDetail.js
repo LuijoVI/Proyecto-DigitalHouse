@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import Modal from '../Modal/Modal';
+import Calendar from '../Search/Calendar/Calendar';
 import ProductPolicies from '../ProductPolicies/ProductPolicies';
 import ProductFeatures from '../ProductFeatures/ProductFeatures';
 import ProductDescription from '../ProductDescription/ProductDescription';
@@ -19,10 +20,15 @@ const ProductDetail = ({
   description,
   city,
   image: images,
+  category,
+  address,
   attributes,
+  latitude,
+  longitude,
   policiesSite,
   policiesSecurityAndHealth,
   policiesCancellation,
+  averageScore,
 }) => {
   const [stateModal, setStateModal] = useState(false);
   const { width } = useWindowSize();
@@ -71,6 +77,29 @@ const ProductDetail = ({
 
       <ProductDescription {...{ name, description }} />
       <ProductFeatures {...{ attributes }} />
+      {/* Calendario */}
+      <section className={style.availableDatesContainer}>
+        <h2>Fechas disponibles</h2>
+        <div className={style.calendarReserve}>
+          <div className={style.calendarContainer}>
+            <Calendar inline={true} />
+          </div>
+          <div className={style.reserveContainer}>
+            <p>Agregá tus fechas de viaje para obtener precios exactos</p>
+            {/*provisorio, realizar bien la validacion y redireccion */}
+            <button
+              className="btn btn2 w-100"
+              onClick={() => {
+                userJwt
+                  ? navigate(`/product/${id}/booking`)
+                  : redirectToLogin();
+              }}
+            >
+              Iniciar reserva
+            </button>
+          </div>
+        </div>
+      </section>
       <ProductPolicies
         policies={{
           policiesSite,

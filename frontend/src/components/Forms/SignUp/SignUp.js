@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import Input from '../Input/Input';
 import style from '../Form.module.css';
 import baseUrl from '../../../utils/baseUrl.json';
-
+import logo from '../../../assets/Logo2.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { userContext } from '../../../context/UserContext';
 import Spinner from '../../Spinner/Spinner';
@@ -185,6 +185,7 @@ const SignUp = () => {
           onSubmit={handleSubmit}
           onChange={validateForm}
         >
+          <img className={style.logo} src={logo} alt="logo" />
           <h1 className={style.titleForm}>Crear cuenta</h1>
           <div>
             <div className={style.inputGroup}>

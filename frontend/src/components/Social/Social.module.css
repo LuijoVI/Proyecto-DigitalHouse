@@ -14,12 +14,12 @@
 
 .social svg {
   font-size: 29px;
-  color: var(--secondary-color);
+  color: var(--texto-principal);
   transition: color 0.3s ease-in-out;
 }
 
 .social svg:hover {
-  color: var(--primary-color);
+  color: var(--color-primario);
 }
 
 @media screen and (min-width: 768px) {
@@ -34,10 +34,10 @@
   }
 
   .social svg {
-    color: var(--white-color);
+    color: var(--texto-secundario);
   }
 
   .social svg:hover {
-    color: var(--thirth-color);
+    color: var(--acento);
   }
 }

@@ -8,8 +8,8 @@ const Avatar = () => {
 
   const name = userContextResult.userInfo.name;
   const lastname = userContextResult.userInfo.lastName;
-  //const roleType = userContextResult.userInfo.role;
-  const roleType = 'ADMIN'; // Hardcoded for testing purposes
+  const roleType = userContextResult.userInfo.role;
+  //const roleType = 'ADMIN'; // Hardcoded for testing purposes
 
   return (
     <div className={style.container}>

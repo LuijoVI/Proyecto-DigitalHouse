@@ -5,7 +5,7 @@ header {
 }
 
 .nav {
-  background-color: var(--white-color);
+  background-color: var(--fondo-alterno);
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -20,9 +20,22 @@ header {
   height: 56px;
 }
 
-.motto {
-  display: none;
+.logo {
+  height: 100%;
+  width: auto;
+  border-radius: 10%;
 }
+
+.motto {
+    display: block;
+    font-style: italic;
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 7px;
+    margin-left: 12px;
+    align-self: end;
+    color: var(--texto-principal);
+  }
 
 @media (min-width: 768px) {
   .nav {
@@ -34,14 +47,5 @@ header {
   .nav {
     padding: 1.25rem 2.5rem;
   }
-  .motto {
-    display: block;
-    font-style: italic;
-    font-size: 20px;
-    font-weight: 300;
-    margin-bottom: 7px;
-    margin-left: 12px;
-    align-self: end;
-    color: var(--thirth-color);
-  }
+  
 }
