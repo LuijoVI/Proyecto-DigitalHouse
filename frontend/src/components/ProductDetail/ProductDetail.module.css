@@ -6,6 +6,11 @@
   padding: 12px;
 }
 
+.locationIcon {
+  font-size: 30px;
+  margin-right: 6px;
+}
+
 .locationScoreContainer {
   display: flex;
   justify-content: space-between;

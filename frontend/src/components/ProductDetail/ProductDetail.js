@@ -52,10 +52,10 @@ const ProductDetail = ({
 
       <section className={style.locationScoreContainer}>
         <div className={style.locationContainer}>
-          <FontAwesomeIcon icon={faLocationDot} />
+          <FontAwesomeIcon className={style.locationIcon} icon={faLocationDot} />
           <div className={style.location}>
-            <p>Buenos Aires, Ciudad Autonoma de Buenos Aires, Argentina.</p>
-            <p className={style.locationDistance}>{city.name}</p>
+            <p>Ubicación</p>
+            <p className={style.locationDistance}>{city.name}, {city.country.name}</p>
           </div>
         </div>
         <div className={style.productScore}>
