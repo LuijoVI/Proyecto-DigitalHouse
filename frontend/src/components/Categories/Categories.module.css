@@ -22,6 +22,10 @@
   animation: scroll-categories 30s linear infinite;
 }
 
+.categoriesList:hover {
+  animation-play-state: paused;
+}
+
 @keyframes scroll-categories {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
