@@ -34,10 +34,10 @@ const Categories = ({ handleFilterCategories }) => {
           </>
         ) : (
           <>
-            {categories.slice(0, 5).map((category) => (
+            {[...categories, ...categories].map((category, idx) => (
               <div
                 className={style.categoryCard}
-                key={category.id}
+                key={category.id + '-' + idx}
                 onClick={() => handleFilterCategories(category.id)}
               >
                 <img
