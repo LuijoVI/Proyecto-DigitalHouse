@@ -17,15 +17,21 @@ const Search = ({ handleSearch }) => {
     handleSearch(city, rangeDate);
   };
 
+  const handleReset = () => {
+    setCity(null);
+    handleSearch(null, [null, null]);
+  };
+
   return (
     <div className={style.searchContainer}>
       <h1 className={style.searchTitle}>
-        Buscar ofertas en hoteles, casas y mucho más
+        Encuentra el lugar perfecto para tus vacaciones
       </h1>
       <form className={style.searchForm} onSubmit={handleSubmit}>
         <SelectCity getCity={getCity} />
         <Calendar />
-        <button className={`btn btn2 ${style.searchBtn}`}>Buscar</button>
+        <button type="submit" className={`btn btn2 ${style.searchBtn}`}>Buscar</button>
+        <button type="button" className={`btn btn2 ${style.searchBtn}`} onClick={handleReset} style={{marginLeft: '10px'}}>Restaurar filtros</button>
       </form>
     </div>
   );
