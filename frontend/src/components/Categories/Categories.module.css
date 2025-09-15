@@ -1,6 +1,9 @@
 .categoriesContainer {
   padding: 36px 12px 62px;
   margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 32px;
 }
 
 .categoriesContainer h2 {

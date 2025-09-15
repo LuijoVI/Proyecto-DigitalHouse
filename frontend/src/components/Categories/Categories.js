@@ -7,7 +7,7 @@ const Categories = ({ handleFilterCategories }) => {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  //console.log(categories);
+  console.log(categories);
 
   useEffect(() => {
     setIsLoading(true);
@@ -30,10 +30,11 @@ const Categories = ({ handleFilterCategories }) => {
             <CategorieSkeleton />
             <CategorieSkeleton />
             <CategorieSkeleton />
+            <CategorieSkeleton />
           </>
         ) : (
           <>
-            {categories.slice(0, 4).map((category) => (
+            {categories.slice(0, 5).map((category) => (
               <div
                 className={style.categoryCard}
                 key={category.id}
