@@ -45,7 +45,9 @@ const Categories = ({ handleFilterCategories }) => {
                   src={category.url}
                   alt={category.name}
                 />
-                <p className={style.categoryName}>{category.name}</p>
+                <div className={style.categoryOverlay}>
+                  <span className={style.categoryName}>{category.name}</span>
+                </div>
               </div>
             ))}
           </>
