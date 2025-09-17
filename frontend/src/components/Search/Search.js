@@ -4,7 +4,7 @@ import Calendar from './Calendar/Calendar';
 import SelectCity from './SelectCity/SelectCity';
 import { dateRangeContext } from '../../context/DateRangeContext';
 
-const Search = ({ handleSearch }) => {
+const Search = ({ handleSearch, handleResetCategory }) => {
   const [city, setCity] = useState(null);
   const { rangeDate } = useContext(dateRangeContext);
 
@@ -20,6 +20,7 @@ const Search = ({ handleSearch }) => {
   const handleReset = () => {
     setCity(null);
     handleSearch(null, [null, null]);
+    if (handleResetCategory) handleResetCategory();
   };
 
   return (

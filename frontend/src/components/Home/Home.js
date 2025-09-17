@@ -20,9 +20,14 @@ const Home = () => {
     setCategoriesFilter(category);
   };
 
+  // Nueva función para restaurar la categoría
+  const handleResetCategory = () => {
+    setCategoriesFilter(null);
+  };
+
   return (
     <div className={style.homeContainer}>
-      <Search handleSearch={handleSearch} />
+      <Search handleSearch={handleSearch} handleResetCategory={handleResetCategory} />
       <Categories handleFilterCategories={handleFilterCategories} />
       <ProductListContainer
         searchCity={searchCity}
