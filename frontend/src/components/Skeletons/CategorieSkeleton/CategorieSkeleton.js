@@ -6,7 +6,7 @@ const CategorieSkeleton = () => {
     <div className={style.card}>
       <div className={style.cardLoad}></div>
       <div className={style.cardLoadTitle}></div>
-      <div className={style.cardLoadDescripion}></div>
+      <div className={style.cardLoadDescription}></div>
     </div>
   );
 };

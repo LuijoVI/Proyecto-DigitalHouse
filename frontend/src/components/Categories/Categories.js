@@ -45,12 +45,7 @@ const Categories = ({ handleFilterCategories }) => {
                   src={category.url}
                   alt={category.name}
                 />
-                <div className={style.containerDescription}>
-                  <p>{category.name}</p>
-                  <p className={style.categoryDescription}>
-                    {category.description}
-                  </p>
-                </div>
+                <p className={style.categoryName}>{category.name}</p>
               </div>
             ))}
           </>
