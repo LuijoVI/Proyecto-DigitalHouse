@@ -71,12 +71,15 @@ const ProductDetail = ({
         </div>
       </section>
 
-      <section className={style.galleryContainer}>
-        <ProductGallery {...{ desktop, images, toggleModal }} />
+      <section className={style.galleryDescriptionWrapper}>
+        <div className={style.galleryLeft}>
+          <ProductGallery {...{ desktop, images, toggleModal }} />
+        </div>
+        <div className={style.galleryRight}>
+          <ProductDescription {...{ name, description }} />
+          <ProductFeatures {...{ attributes }} />
+        </div>
       </section>
-
-      <ProductDescription {...{ name, description }} />
-      <ProductFeatures {...{ attributes }} />
       {/* Calendario */}
       <section className={style.availableDatesContainer}>
         <h2>Fechas disponibles</h2>
