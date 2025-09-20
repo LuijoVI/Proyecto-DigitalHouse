@@ -4,7 +4,6 @@ import style from './Product.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   fas,
-  faStar,
   faHeart,
   faLocationDot,
 } from '@fortawesome/free-solid-svg-icons';
@@ -40,6 +39,15 @@ const Product = ({
     return text;
   };
 
+  // Función para obtener el color según el rating
+  const getScoreColor = (rating) => {
+    if (rating >= 0 && rating <= 2.5) return '#e53935'; // rojo
+    if (rating > 2.5 && rating <= 5) return '#ffb300'; // naranja
+    if (rating > 5 && rating <= 6.5) return '#fdd835'; // amarillo
+    if (rating > 6.5 && rating <= 8) return '#43a047'; // verde medio
+    return '#2e7d32'; // verde fuerte
+  };
+
   return (
     <div className={style.cardContainer}>
       <div className={style.productImageContainer}>
@@ -55,13 +63,15 @@ const Product = ({
           <div className={style.productInitialContainer}>
             <div className={style.productCategoryContainer}>
               <p className={style.productCategory}>{category.name}</p>
-              <FontAwesomeIcon className={style.productStars} icon={faStar} />
             </div>
             <h5 className={style.productTitle}>{title}</h5>
           </div>
           {/* Score */}
           <div className={style.productScore}>
-            <span className={style.scoreNumber}>
+            <span
+              className={style.scoreNumber}
+              style={{ background: getScoreColor(averageScore ?? 1) }}
+            >
               {averageScore ? averageScore : 1}
             </span>
             <p className={style.scoreText}>{textScore(averageScore)}</p>
