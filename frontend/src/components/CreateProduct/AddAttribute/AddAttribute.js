@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
+import * as fas from '@fortawesome/free-solid-svg-icons';
 import baseUrl from '../../../utils/baseUrl.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import style from '../CreateProduct.module.css';
@@ -92,19 +93,17 @@ const AddAttribute = ({ getAttributes }) => {
     <>
       {arrayAttributes.map((attributeArray, i) => (
         <div className={style.containerDoubleInput} key={i}>
-          <div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '18px'}}>
             <Input
               state={{ value: attributeArray.name }}
               label="Nombre"
               type="text"
               readonly
             />
-            <Input
-              state={{ value: attributeArray.icon }}
-              label="Ícono"
-              type="text"
-              readonly
-            />
+            {/* Icono grande y sin nombre */}
+            <span style={{fontSize: '38px', color: 'var(--primary-color)'}}>
+              <FontAwesomeIcon icon={fas[attributeArray.icon]} />
+            </span>
           </div>
           <button
             className={`${style.btn} ${style.btnDelete}`}
@@ -117,20 +116,29 @@ const AddAttribute = ({ getAttributes }) => {
       ))}
       {/* Drop list para atributos predefinidos */}
       {!showCustomInput && (
-        <div className={style.containerDoubleInput}>
+        <div className={style.containerDoubleInput} style={{flexDirection: 'column', alignItems: 'stretch', gap: '12px'}}>
           <div className={style.doubleInput}>
-            <select
-              className={style.input}
-              value={selectedAttribute}
-              onChange={e => setSelectedAttribute(e.target.value)}
-            >
-              <option value="">Selecciona un atributo</option>
-              {arrayGetAttributes.map(attr => (
-                <option key={attr.name} value={attr.name}>
-                  {attr.name}
-                </option>
-              ))}
-            </select>
+            <div style={{position: 'relative', width: '100%'}}>
+              <select
+                className={style.input}
+                value={selectedAttribute}
+                onChange={e => setSelectedAttribute(e.target.value)}
+                style={{paddingLeft: '38px'}}
+              >
+                <option value="">Selecciona un atributo</option>
+                {arrayGetAttributes.map(attr => (
+                  <option key={attr.name} value={attr.name} data-icon={attr.icon}>
+                    {attr.name}
+                  </option>
+                ))}
+              </select>
+              {/* Icono visual a la izquierda del select, si hay uno seleccionado */}
+              {selectedAttribute && (
+                <span style={{position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', fontSize: '18px', color: '#888'}}>
+                  <FontAwesomeIcon icon={fas[arrayGetAttributes.find(attr => attr.name === selectedAttribute)?.icon]} />
+                </span>
+              )}
+            </div>
             <button
               className={`${style.btn} ${style.btnPlus}`}
               onClick={handleAddAttribute}
@@ -139,15 +147,14 @@ const AddAttribute = ({ getAttributes }) => {
               <FontAwesomeIcon icon={faPlus} />
             </button>
           </div>
+          {msgError && <p className={style.msgErrorInvalidForm}>{msgError}</p>}
           <button
             className={style.btn}
             type="button"
             onClick={() => setShowCustomInput(true)}
-            style={{marginLeft: '8px'}}
-          >
+            style={{alignSelf: 'center', marginTop: '8px', minWidth: '260px', width: 'fit-content', padding: '0 18px'}}>
             ¿No encuentras el atributo? Agrégalo
           </button>
-          {msgError && <p className={style.msgErrorInvalidForm}>{msgError}</p>}
         </div>
       )}
       {/* Inputs personalizados para nuevo atributo */}
@@ -182,8 +189,7 @@ const AddAttribute = ({ getAttributes }) => {
             className={style.btn}
             type="button"
             onClick={() => setShowCustomInput(false)}
-            style={{marginLeft: '8px'}}
-          >
+            style={{alignSelf: 'center', marginTop: '8px', minWidth: '260px', width: 'fit-content', padding: '0 18px'}}>
             Volver a la lista
           </button>
           {msgError && <p className={style.msgErrorInvalidForm}>{msgError}</p>}
