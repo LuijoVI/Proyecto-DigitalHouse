@@ -1,29 +1,77 @@
 .categoriesContainer {
   padding: 36px 12px 62px;
   margin: auto;
+  display: flex;
+  gap: 32px;
 }
 
 .categoriesContainer h2 {
   margin-bottom: 4px;
+  margin-left: 40vw;
 }
 
 .categoriesList {
+  height: 276px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 21px;
+  overflow-x: hidden;
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
+  animation: scroll-categories 30s linear infinite;
+}
+
+.categoriesList:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-categories {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .categoryCard {
+  min-width: 310px;
   max-width: 392px;
   max-height: 276px;
   height: 100%;
-  /* border: 1px solid #f3f1ed; */
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   font-weight: 700;
-  color: var(--thirth-color);
   font-size: 20px;
   transition: all 0.5s ease-in-out;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+.categoryOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  opacity: 1;
+  transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1);
+  pointer-events: none;
+}
+
+.categoryName {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  z-index: 2;
+  padding: 0 10px;
+  word-break: break-word;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  opacity: 1;
+  transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1);
 }
 
 .categoryCard:hover {
@@ -32,12 +80,18 @@
   cursor: pointer;
 }
 
+.categoryCard:hover .categoryOverlay {
+  opacity: 0;
+}
+.categoryCard:hover .categoryName {
+  opacity: 0;
+}
+
 .categoryImage {
   width: 100%;
-  height: 218px;
+  height: 248px;
   object-fit: cover;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border-radius: 10px;
 }
 
 .containerDescription {
@@ -72,7 +126,7 @@
   }
 
   .categoryImage {
-    max-height: 181px;
+    max-height: 248px;
   }
 }
 

@@ -52,10 +52,10 @@ const ProductDetail = ({
 
       <section className={style.locationScoreContainer}>
         <div className={style.locationContainer}>
-          <FontAwesomeIcon icon={faLocationDot} />
+          <FontAwesomeIcon className={style.locationIcon} icon={faLocationDot} />
           <div className={style.location}>
-            <p>Buenos Aires, Ciudad Autonoma de Buenos Aires, Argentina.</p>
-            <p className={style.locationDistance}>{city.name}</p>
+            <p>Ubicación</p>
+            <p className={style.locationDistance}>{city.name}, {city.country.name}</p>
           </div>
         </div>
         <div className={style.productScore}>
@@ -71,12 +71,15 @@ const ProductDetail = ({
         </div>
       </section>
 
-      <section className={style.galleryContainer}>
-        <ProductGallery {...{ desktop, images, toggleModal }} />
+      <section className={style.galleryDescriptionWrapper}>
+        <div className={style.galleryLeft}>
+          <ProductGallery {...{ desktop, images, toggleModal }} />
+        </div>
+        <div className={style.galleryRight}>
+          <ProductDescription {...{ name, description }} />
+          <ProductFeatures {...{ attributes }} />
+        </div>
       </section>
-
-      <ProductDescription {...{ name, description }} />
-      <ProductFeatures {...{ attributes }} />
       {/* Calendario */}
       <section className={style.availableDatesContainer}>
         <h2>Fechas disponibles</h2>
