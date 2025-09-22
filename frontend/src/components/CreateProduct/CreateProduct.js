@@ -278,6 +278,18 @@ const CreateProduct = () => {
     <div className={style.container}>
       <h2>Crear propiedad</h2>
       <form className={style.formProduct} onSubmit={handleSubmit}>
+        <section className={style.containerImages}>
+          <h2>Cargar imágenes</h2>
+          <AddImages getImages={getImages} />
+          {msgErrorImages && (
+            <div className={style.msgImageNewProductError}>
+              <div>
+                <FontAwesomeIcon icon={faCircleExclamation} />
+              </div>
+              <p>Debe ingresar como mínimo 5 (cinco) imágenes</p>
+            </div>
+          )}
+        </section>
         <section className={style.initialDataProperty}>
           <div className={style.doubleProperty}>
             <Input
@@ -349,18 +361,6 @@ const CreateProduct = () => {
               name={'cancellationPolicy'}
             />
           </div>
-        </section>
-        <section className={style.containerImages}>
-          <h2>Cargar imágenes</h2>
-          <AddImages getImages={getImages} />
-          {msgErrorImages && (
-            <div className={style.msgImageNewProductError}>
-              <div>
-                <FontAwesomeIcon icon={faCircleExclamation} />
-              </div>
-              <p>Debe ingresar como mínimo 5 (cinco) imágenes</p>
-            </div>
-          )}
         </section>
         <button className={`btn btn2 ${style.btnSubmit}`}>Crear</button>
       </form>
