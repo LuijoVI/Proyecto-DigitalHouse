@@ -23,11 +23,24 @@ const AddImages = ({ getImages }) => {
   const handleAddImage = async (e) => {
     const files = Array.from(e.target.files);
     setMsgError(null);
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/avif'];
+    const maxSizeMB = 5;
+    let errorMsg = '';
     for (const file of files) {
-      // Aquí deberías validar el tipo y tamaño si lo deseas
+      // Validar tipo
+      if (!allowedTypes.includes(file.type)) {
+        errorMsg = `Formato no permitido: ${file.name}. Solo JPG, JPEG, PNG o WEBP.`;
+        continue;
+      }
+      // Validar tamaño
+      if (file.size > maxSizeMB * 1024 * 1024) {
+        errorMsg = `El archivo ${file.name} supera el tamaño máximo de ${maxSizeMB}MB.`;
+        continue;
+      }
       const url = await uploadToS3(file);
       setArrayImages(prev => ([...prev, { file, url, name: file.name }]));
     }
+    if (errorMsg) setMsgError(errorMsg);
     // Limpiar el input para permitir volver a subir la misma imagen si se desea
     fileInputRef.current.value = '';
   };
