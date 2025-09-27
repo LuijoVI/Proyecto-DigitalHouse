@@ -34,49 +34,54 @@ const Login = () => {
   }, [userInfo?.redirect, logoutUser]);
 
   const handleSubmit = (e) => {
-    console.log('handleSubmit');
     e.preventDefault();
+    let valid = true;
+
+    if (!regularExpressions.email.test(email.value)) {
+      setEmail((prev) => ({ ...prev, valid: 'false' }));
+      valid = false;
+    } else {
+      setEmail((prev) => ({ ...prev, valid: 'true' }));
+    }
+
+    if (!regularExpressions.password.test(password.value)) {
+      setPassword((prev) => ({ ...prev, valid: 'false' }));
+      valid = false;
+    } else {
+      setPassword((prev) => ({ ...prev, valid: 'true' }));
+    }
+
+    if (!valid) {
+      setIsFormValid(false);
+      return;
+    }
+
     setIsFormValid(true);
-
-    if (email.value === '') {
-      setEmail((prevState) => {
-        return { ...prevState, valid: 'false' };
-      });
-    }
-    if (password.value === '') {
-      setPassword((prevState) => {
-        return { ...prevState, valid: 'false' };
-      });
-    }
-
-    if (email.valid === 'true' && password.valid === 'true') {
-      console.log('Enviando formulario');
-      const data = {
-        email: email.value,
-        password: password.value,
-      };
-      setIsLoading(true);
-      fetch(`${baseUrl.url}/authenticate`, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const data = {
+      email: email.value,
+      password: password.value,
+    };
+    setIsLoading(true);
+    fetch(`${baseUrl.url}/authenticate`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setIsLoading(false);
+        loginUser({ ...data, redirect: false });
+        navigate('/');
       })
-        .then((res) => res.json())
-        .then((data) => {
-          setIsLoading(false);
-          loginUser({ ...data, redirect: false });
-          navigate('/');
-        })
-        .catch((err) => {
-          setIsLoading(false);
-          setIsFormValid(false);
-          setMsgError(
-            'Lamentablemente no ha podido iniciar sesión. Por favor intente más tarde'
-          );
-        });
-    }
+      .catch((err) => {
+        setIsLoading(false);
+        setIsFormValid(false);
+        setMsgError(
+          'Lamentablemente no ha podido iniciar sesión. Revisa tus credenciales e intentalo nuevamente.'
+        );
+      });
   };
 
   return (

@@ -1,3 +1,52 @@
+/* Estilo para select similar a input */
+
+.input, select.input {
+  font-size: 14px;
+  padding: 0 14px;
+  height: 44px;
+  border: 1.5px solid var(--primary-color);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--thirth-color);
+  outline: none;
+  width: 100%;
+  margin-bottom: 0;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+}
+
+select.input:focus {
+  border-color: var(--primary-color-hover);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.08);
+}
+
+select.input option {
+  color: var(--thirth-color);
+  background: #fff;
+}
+
+/* Flecha personalizada para el select */
+select.input::-ms-expand {
+  display: none;
+}
+select.input {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23999" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7.293 8.293a1 1 0 011.414 0L10 9.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px 20px;
+}
+
+select.input:focus {
+  border-color: var(--primary-color);
+}
+
+select.input option {
+  color: var(--thirth-color);
+}
 .container {
   padding-bottom: 30px;
 }
@@ -123,12 +172,27 @@
   font-size: 30px;
 }
 
+
 .btnPlus {
-  background-color: var(--primary-color);
+  background-color: #1e88e5; /* Nuevo color azul intenso */
+  color: #fff;
+  min-width: 120px;
+  width: auto;
+  max-width: 100%;
+  font-size: 16px;
+  padding: 0 32px;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
 }
 
 .btnPlus:hover {
-  background-color: var(--primary-color-hover);
+  background-color: #1565c0;
+  box-shadow: 0 2px 12px rgba(30,136,229,0.13);
+  transform: translateY(-2px) scale(1.03);
 }
 
 .btnDelete {
