@@ -12,7 +12,7 @@ const Header = () => {
           <Link to="/" aria-label="Página de inicio de Digital Booking">
             <img className={style.logo} src={logo} alt="logo" />
           </Link>
-          <span className={style.motto}>Ponemos el paraiso a tus manos</span>
+          <span className={style.motto}>Tu hogar, donde sea que estés</span>
         </div>
         <Menu />
       </nav>

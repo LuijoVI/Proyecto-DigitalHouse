@@ -4,6 +4,7 @@ import com.grupo9.digitalbooking.security.jwt.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -58,12 +59,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/swagger-resources/**").permitAll()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/users/create").permitAll()
+                // Permitir GET público para /attributes
+                .antMatchers(HttpMethod.GET, "/attributes").permitAll()
+                // Mantener protección para administración de atributos
+                .antMatchers("/attributes/**").hasAuthority("ADMIN")
                 /* USER */
                 .antMatchers("/reservations/create").hasAuthority("USER")
                 /* ADMIN */
                 .antMatchers("/cities/create", "/cities/update", "/cities/delete/{id}").hasAuthority("ADMIN")
                 .antMatchers("/products/create", "/products/update", "/products/delete/{id}").hasAuthority("ADMIN")
-                .antMatchers("/attributes/**").hasAuthority("ADMIN")
                 .antMatchers("/images/**").hasAuthority("ADMIN")
                 //.antMatchers("/products/**", "/cities/**", "/categories").permitAll()
 

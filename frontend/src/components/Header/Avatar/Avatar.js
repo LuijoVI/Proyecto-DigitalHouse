@@ -9,6 +9,7 @@ const Avatar = () => {
   const name = userContextResult.userInfo.name;
   const lastname = userContextResult.userInfo.lastName;
   const roleType = userContextResult.userInfo.role;
+  console.log('roleType en Avatar:', roleType);
   //const roleType = 'ADMIN'; // Hardcoded for testing purposes
 
   return (
