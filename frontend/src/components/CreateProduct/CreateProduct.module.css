@@ -4,10 +4,10 @@
   font-size: 14px;
   padding: 0 14px;
   height: 44px;
-  border: 1.5px solid var(--primary-color);
+  border: 1.5px solid var(--color-primario);
   border-radius: 8px;
   background: #fff;
-  color: var(--thirth-color);
+  color: var(--texto-principal);
   outline: none;
   width: 100%;
   margin-bottom: 0;
@@ -20,12 +20,12 @@
 }
 
 select.input:focus {
-  border-color: var(--primary-color-hover);
+  border-color: var(--color-primario-hover);
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.08);
 }
 
 select.input option {
-  color: var(--thirth-color);
+  color: var(--texto-principal);
   background: #fff;
 }
 
@@ -41,11 +41,11 @@ select.input {
 }
 
 select.input:focus {
-  border-color: var(--primary-color);
+  border-color: var(--color-primario);
 }
 
 select.input option {
-  color: var(--thirth-color);
+  color: var(--texto-principal);
 }
 .container {
   padding-bottom: 30px;
@@ -56,7 +56,7 @@ select.input option {
 }
 
 .formProduct {
-  background-color: var(--white-color);
+  background-color: var(--fondo-principal);
   padding-bottom: 53px; /* Momentaneo revisar */
   border: 1px solid #dfe4ea;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -163,7 +163,7 @@ select.input option {
   margin-top: 8px;
   border: none;
   border-radius: 5px;
-  color: var(--white-color);
+  color: var(--fondo-principal);
   cursor: pointer;
   transition: ease-in-out 0.3s;
 }
@@ -196,11 +196,11 @@ select.input option {
 }
 
 .btnDelete {
-  background-color: var(--secondary-color);
+  background-color: var(--color-secundario);
 }
 
 .btnDelete:hover {
-  background-color: var(--thirth-color);
+  background-color: var(--texto-principal);
 }
 
 /* MOMENTANEO DESPUES ACOMODAR MEJOR */

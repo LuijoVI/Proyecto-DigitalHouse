@@ -1,12 +1,12 @@
 .container {
   padding: 19px 12px 62px;
   /* margin: auto; */
-  background: var(--secondary-color);
+  background: var(--color-secundario);
   padding-bottom: 25px;
 }
 
 @media (min-width: 768px) {
   .container {
-    background: var(--light-grey-color);
+  background: var(--fondo-alterno);
   }
 }

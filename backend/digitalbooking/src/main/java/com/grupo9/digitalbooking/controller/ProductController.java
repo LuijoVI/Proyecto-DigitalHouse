@@ -2,9 +2,11 @@ package com.grupo9.digitalbooking.controller;
 
 import com.grupo9.digitalbooking.model.Category;
 import com.grupo9.digitalbooking.model.City;
+import com.grupo9.digitalbooking.model.Image;
 import com.grupo9.digitalbooking.model.Product;
 import com.grupo9.digitalbooking.response.ApiResponseHandler;
 import com.grupo9.digitalbooking.services.ProductService;
+import com.grupo9.digitalbooking.services.S3Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +29,9 @@ public class ProductController {
 
     @Autowired
     private ProductService prodctService;
+
+    @Autowired
+    private S3Service s3Service;
 
     @GetMapping
     public ResponseEntity<List<Product>> listarProductos(){
@@ -110,7 +116,37 @@ public class ProductController {
     public ResponseEntity<List<Product>> findAllRandom(){
         return ResponseEntity.ok(prodctService.getRandomProduct());
     }
+
+    @PostMapping(value = "/create-with-images", consumes = {"multipart/form-data"})
+    public ResponseEntity<Product> crearProductoConImagenes(
+            @RequestPart("product") Product product,
+            @RequestPart(value = "images", required = false) List<MultipartFile> images) {
+        // Este método ya no es necesario, ya que ahora las imágenes se suben desde el frontend y solo se reciben las URLs.
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(null);
+    }
+
+    @PostMapping("/create-with-image-urls")
+    public ResponseEntity<Product> crearProductoConImageUrls(
+            @RequestBody Product product,
+            @RequestParam(value = "imageUrls", required = false) List<String> imageUrls) {
+        // Validar cantidad de imágenes
+        if (imageUrls != null && imageUrls.size() > 5) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        // Guardar producto primero
+        Product savedProduct = prodctService.saveProduct(product);
+        // Asociar URLs como imágenes
+        if (imageUrls != null) {
+            List<Image> imageEntities = new ArrayList<>();
+            for (String url : imageUrls) {
+                Image img = new Image();
+                img.setUrl(url);
+                img.setProduct(savedProduct);
+                imageEntities.add(img);
+            }
+            prodctService.saveImages(imageEntities);
+            savedProduct.setImage(imageEntities);
+        }
+        return ResponseEntity.ok(savedProduct);
+    }
 }
-
-
-

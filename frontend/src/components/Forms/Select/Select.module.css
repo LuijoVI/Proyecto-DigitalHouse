@@ -8,7 +8,7 @@
 .label {
   font-size: 12px;
   font-weight: 500;
-  color: var(--thirth-color);
+  color: var(--texto-principal);
   width: fit-content;
 }
 
@@ -27,12 +27,12 @@
   position: absolute;
   right: 10px;
   top: 10px;
-  color: var(--primary-color);
+  color: var(--color-primario);
   cursor: pointer;
 }
 
 .selectBox > svg:hover {
-  color: var(--primary-color-hover);
+  color: var(--color-primario-hover);
 }
 
 .dropDownHeader {
@@ -60,7 +60,7 @@
   /* options */
   position: absolute;
   background: #ffffff;
-  color: var(--secondary-color);
+  color: var(--color-secundario);
   font-size: 1.3rem;
   font-weight: 500;
   width: 100%;
@@ -108,7 +108,7 @@
 }
 
 .optionContent {
-  border-bottom: 1px solid var(--primary-color);
+  border-bottom: 1px solid var(--color-primario);
   padding: 11px 0;
   cursor: pointer;
 }

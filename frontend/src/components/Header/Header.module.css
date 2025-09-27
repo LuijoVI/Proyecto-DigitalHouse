@@ -34,7 +34,7 @@ header {
     margin-bottom: 7px;
     margin-left: 12px;
     align-self: end;
-    color: var(--texto-principal);
+  color: var(--texto-principal);
   }
 
 @media (min-width: 768px) {

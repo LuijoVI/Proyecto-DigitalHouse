@@ -11,11 +11,11 @@
 }
 
 .recommendations {
-  color: var(--white-color);
+  color: var(--fondo-principal);
 }
 
 .msgNoProducts {
-  color: var(--secondary-color);
+  color: var(--color-secundario);
   font-weight: 500;
   margin-bottom: 40px;
 }
@@ -25,7 +25,7 @@
     max-width: 735px;
   }
   .recommendations {
-    color: var(--secondary-color);
+  color: var(--color-secundario);
   }
 }
 @media (min-width: 1333px) {

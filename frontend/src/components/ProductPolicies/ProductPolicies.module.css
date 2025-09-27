@@ -7,7 +7,7 @@
 }
 
 .policie {
-  color: var(--secondary-color);
+  color: var(--color-secundario);
   max-width: 311px;
 }
 
@@ -24,9 +24,9 @@
 }
 
 .line {
-  border: solid 1px var(--primary-color);
+  border: solid 1px var(--color-primario);
   outline: none;
-  background: var(--primary-color);
+  background: var(--color-primario);
   margin: 12px 0 15px;
 }
 

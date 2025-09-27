@@ -22,12 +22,12 @@
   position: absolute;
   right: 10px;
   top: 10px;
-  color: var(--primary-color);
+  color: var(--color-primario);
   cursor: pointer;
 }
 
 .selectBox > svg:hover {
-  color: var(--primary-color-hover);
+  color: var(--color-primario-hover);
 }
 
 .dropDownHeader {
@@ -55,7 +55,7 @@
   /* options */
   position: absolute;
   background: #ffffff;
-  color: var(--secondary-color);
+  color: var(--color-secundario);
   font-size: 1.3rem;
   font-weight: 500;
   width: 100%;
@@ -111,7 +111,7 @@
 }
 
 .optionContent {
-  border-bottom: 1px solid var(--primary-color);
+  border-bottom: 1px solid var(--color-primario);
   padding: 11px 0;
   cursor: pointer;
 }
@@ -140,7 +140,7 @@
 /* .dropDownList .optionContent:hover .title,
   .dropDownList .optionContent:hover .description {
     color: #fff;
-    color: var(--primary-color);
+    color: var(--color-primario);
   } */
 
 /* Estilos duplicados del CreateProduct.module.css - Refactorizar para que reutilicemos esos */
@@ -152,7 +152,7 @@
   /* margin-top: 8px; */
   border: none;
   border-radius: 5px;
-  color: var(--white-color);
+  color: var(--fondo-principal);
   cursor: pointer;
   transition: ease-in-out 0.3s;
 }
@@ -162,19 +162,19 @@
 }
 
 .btnPlus {
-  background-color: var(--primary-color);
+  background-color: var(--color-primario);
 }
 
 .btnPlus:hover {
-  background-color: var(--primary-color-hover);
+  background-color: var(--color-primario-hover);
 }
 
 .btnDelete {
-  background-color: var(--secondary-color);
+  background-color: var(--color-secundario);
 }
 
 .btnDelete:hover {
-  background-color: var(--thirth-color);
+  background-color: var(--texto-principal);
 }
 
 .containerInput {

@@ -2,8 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--secondary-color);
-  color: var(--white-color);
+  background-color: var(--color-secundario);
+  color: var(--fondo-principal);
 }
 
 .headerLeft {
@@ -21,12 +21,12 @@
 }
 
 .headerRight a {
-  color: var(--white-color);
+  color: var(--fondo-principal);
   transition: 300ms ease-in-out;
 }
 
 .headerRight a:hover {
-  color: var(--primary-color);
+  color: var(--color-primario);
 }
 
 @media (min-width: 768px) {

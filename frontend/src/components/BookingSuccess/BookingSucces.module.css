@@ -37,7 +37,7 @@
   display: flex;
   align-items: flex-end;
   text-align: center;
-  color: var(--primary-color);
+  color: var(--color-primario);
 }
 
 .successful {
@@ -47,7 +47,7 @@
   align-items: flex-end;
   text-align: center;
   color: rgb(49, 54, 63);
-  color: var(--secondary-color);
+  color: var(--color-secundario);
 }
 
 @media screen and (min-width: 768px) {

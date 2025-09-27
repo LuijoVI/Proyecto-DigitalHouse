@@ -32,7 +32,7 @@
 
 input:focus {
   outline: none;
-  background-color: var(--white-color);
+  background-color: var(--fondo-principal);
 }
 
 .input:read-only {
@@ -58,7 +58,7 @@ input:focus {
 .msgError {
   display: inline-block;
   text-align: end;
-  color: var(--red-color);
+  color: var(--error);
   padding: 0 0.5rem;
 }
 

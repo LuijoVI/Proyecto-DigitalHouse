@@ -1,7 +1,9 @@
 package com.grupo9.digitalbooking.services.impl;
 import com.grupo9.digitalbooking.model.Category;
 import com.grupo9.digitalbooking.model.City;
+import com.grupo9.digitalbooking.model.Image;
 import com.grupo9.digitalbooking.model.Product;
+import com.grupo9.digitalbooking.repository.ImageRepository;
 import com.grupo9.digitalbooking.repository.ProductRepository;
 import com.grupo9.digitalbooking.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private ImageRepository imageRepository;
 
     @Override
     public List<Product> getAllProducts() {
@@ -62,5 +66,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getRandomProduct() {
         return productRepository.getRandomProduct();
+    }
+
+    @Override
+    public void saveImages(List<Image> images) {
+        imageRepository.saveAll(images);
     }
 }
