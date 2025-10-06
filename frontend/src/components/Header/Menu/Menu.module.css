@@ -7,7 +7,7 @@
   max-width: 303px;
   width: 100%;
   align-items: flex-end;
-  background-color: var(--white-color);
+  background-color: var(--fondo-principal);
   height: 100%;
   overflow-y: auto;
   pointer-events: none;
@@ -17,8 +17,8 @@
 }
 
 .menuTop {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: var(--color-primario);
+  color: var(--fondo-principal);
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -64,7 +64,7 @@
 }
 
 .menuBody ul a {
-  color: var(--secondary-color);
+  color: var(--color-secundario);
   font-size: 16px;
   font-weight: 700;
   padding: 0 5px;
@@ -84,18 +84,18 @@
 }
 
 .signOff {
-  color: var(--primary-color);
+  color: var(--color-primario);
   transition: color 0.3s ease-in-out;
 }
 
 .signOff:hover {
-  color: var(--primary-color-hover);
+  color: var(--color-primario-hover);
 }
 
 .lineOrange {
   display: block;
-  border: 1px solid var(--primary-color);
-  background-color: var(--primary-color);
+  border: 1px solid var(--color-primario);
+  background-color: var(--color-primario);
   width: 100%;
 }
 
@@ -115,7 +115,7 @@
 .closeMenu {
   align-self: flex-start;
   margin: 12px 14px;
-  color: var(--white-color);
+  color: var(--fondo-principal);
 }
 
 .closeMenu svg {
@@ -166,11 +166,11 @@
     right: 0;
     padding: 5px;
     margin: 0;
-    color: var(--thirth-color);
+  color: var(--texto-principal);
   }
 
   .closeMenu svg {
     font-size: 20px;
-    color: var(--secondary-color);
+  color: var(--color-secundario);
   }
 }

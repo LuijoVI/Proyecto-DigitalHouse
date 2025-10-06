@@ -6,7 +6,7 @@
   gap: 15px 20px;
   font-size: 14px;
   font-weight: 500;
-  color: var(--secondary-color);
+  color: var(--color-secundario);
 }
 
 .feature {
@@ -15,14 +15,14 @@
 }
 
 .feature svg {
-  color: var(--primary-color);
+  color: var(--color-primario);
   width: 24px;
 }
 
 .line {
-  border: solid 1px var(--primary-color);
+  border: solid 1px var(--color-primario);
   outline: none;
-  background: var(--primary-color);
+  background: var(--color-primario);
   margin: 12px 0 15px;
 }
 

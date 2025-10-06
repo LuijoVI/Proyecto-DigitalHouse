@@ -1,5 +1,5 @@
 /* .galleryContainer {
-  background: var(--white-color);
+  background: var(--fondo-principal);
   opacity: 0.95;
   backdrop-filter: blur(250px);
   display: flex;
@@ -76,7 +76,7 @@
   position: absolute;
   bottom: 15px;
   right: 19px;
-  color: var(--white-color);
+  color: var(--fondo-principal);
   font-weight: 500;
   /* text-decoration: underline; */
   background: none;

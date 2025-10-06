@@ -1,5 +1,5 @@
 .reserveDetailContainer {
-  background-color: var(--white-color);
+  background-color: var(--fondo-principal);
   padding: 31px 15px 18px;
   /* padding: 18px 18px 39px; */
   box-shadow: 0px 1px 5px rgb(0 0 0 / 15%);
@@ -23,7 +23,7 @@
   text-transform: uppercase;
   font-weight: 700;
   font-size: 20px;
-  color: var(--secondary-color);
+  color: var(--color-secundario);
   margin: 15px 0 10px;
 }
 

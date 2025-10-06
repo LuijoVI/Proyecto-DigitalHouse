@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  background: var(--white-color);
+  background: var(--fondo-principal);
   opacity: 0.95;
   backdrop-filter: blur(250px);
   justify-content: center;
@@ -111,7 +111,7 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-size: 14px;
   font-weight: 500;
-  color: var(--secondary-color);
+  color: var(--color-secundario);
 }
 
 .locationContainer {
@@ -136,7 +136,7 @@
 }
 
 .productStars {
-  color: var(--primary-color);
+  color: var(--color-primario);
   font-size: 14px;
 }
 
@@ -144,8 +144,8 @@
   min-width: fit-content;
   text-align: center;
   width: 34px;
-  background: var(--secondary-color);
-  color: var(--white-color);
+  background: var(--color-secundario);
+  color: var(--fondo-principal);
   font-size: 20px;
   border-radius: 10px;
   padding: 7px; /* revisar */
@@ -189,9 +189,9 @@
 /************/
 
 .line {
-  border: solid 1px var(--primary-color);
+  border: solid 1px var(--color-primario);
   outline: none;
-  background: var(--primary-color);
+  background: var(--color-primario);
   margin: 12px 0 15px;
 }
 
@@ -246,8 +246,8 @@
   .reserveContainer {
     display: flex;
     flex-direction: column;
-    background-color: var(--white-color);
-    border: 1px solid var(--white-color);
+  background-color: var(--fondo-principal);
+  border: 1px solid var(--fondo-principal);
     box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
     border-radius: 8px;
     padding: 26px 16px 15px;
