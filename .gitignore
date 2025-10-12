@@ -6,3 +6,4 @@ WIKI.md
 .idea/copilot.data.migration.edit.xml
 /.idea
 frontend/src/utils/s3Upload.js
+backend/digitalbooking/src/main/resources/application.properties
