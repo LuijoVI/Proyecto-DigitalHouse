@@ -52,6 +52,8 @@ const Menu = () => {
             </div>
           ) : (
             <>
+              <Link to="/mis-reservas" className="btn btn1" style={{marginRight: '1rem'}}>Mis Reservas</Link>
+              <Link to="/mis-favoritos" className="btn btn2" style={{marginRight: '1rem'}}>Mis Favoritos</Link>
               <button
                 className={style.closeMenu}
                 onClick={() => {

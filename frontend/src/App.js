@@ -1,3 +1,5 @@
+import MisReservas from './pages/MisReservas/MisReservas';
+import MisFavoritos from './pages/MisFavoritos/MisFavoritos';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Footer from './components/Footer/Footer';
@@ -41,6 +43,8 @@ function App() {
                   <Administration />
                 </AdminRoute>
               } />
+              <Route path="/mis-reservas" element={<MisReservas />} />
+              <Route path="/mis-favoritos" element={<MisFavoritos />} />
               <Route
                 path="/successful-new-product"
                 element={<NewProductSuccessful />}
