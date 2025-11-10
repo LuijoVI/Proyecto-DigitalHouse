@@ -16,7 +16,7 @@ const Avatar = () => {
     <div className={style.container}>
       {roleType === 'ADMIN' && (
         <div className={style.containerRole}>
-          <Link to="/administration" className={style.textRole}>
+          <Link to="/admin" className={style.textRole}>
             Administración
           </Link>{' '}
           <span className={style.lineOrangeVertical}></span>

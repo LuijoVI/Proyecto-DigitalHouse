@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -63,15 +64,16 @@ public class ProductController {
         return ResponseEntity.ok(prodctService.saveProduct(product));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update")
-    public ResponseEntity<?> editarProducto(@RequestBody Product product) throws Exception{
+    public ResponseEntity<?> editarProducto(@RequestBody Product product) {
         Optional<Product> productoBuscado = prodctService.getProductById(product.getId());
-        if(productoBuscado.isPresent()){
-            return ResponseEntity.ok(prodctService.updateProduct(product));
+        if (productoBuscado.isPresent()) {
+            prodctService.updateProduct(product);
+            return ResponseEntity.ok("Se actualizó el producto con ID: " + product.getId());
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El producto con ID: " + product.getId() + " no se encuentra ");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El producto con ID: " + product.getId() + " no se encuentra");
         }
-
     }
 
     @DeleteMapping("/delete/{id}")

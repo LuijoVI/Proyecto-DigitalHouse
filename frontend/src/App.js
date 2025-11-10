@@ -14,8 +14,8 @@ import DateRangeProvider from './context/DateRangeContext';
 import ProductBooking from './pages/ProductBooking/ProductBooking';
 import BookingSucces from './components/BookingSuccess/BookingSucces';
 import NotFound from './pages/NotFound/NotFound';
-import Administration from './pages/Administration/Administration';
 import AdminRoute from './components/ProtectedRoutes/AdminRoute';
+import AdminDashboardRoutes from './pages/AdminDashboard/AdminDashboardRoutes';
 import NewProductSuccessful from './components/NewProductSuccessful/NewProductSuccessful';
 
 function App() {
@@ -38,9 +38,11 @@ function App() {
               />
               <Route path="/product/:id/booking" element={<ProductBooking />} />
               <Route path="/booking/success" element={<BookingSucces />} />
-              <Route path="/administration" element={
+              
+              {/* Dashboard de administración CRUD */}
+              <Route path="/admin/*" element={
                 <AdminRoute>
-                  <Administration />
+                  <AdminDashboardRoutes />
                 </AdminRoute>
               } />
               <Route path="/mis-reservas" element={<MisReservas />} />
