@@ -1,15 +1,31 @@
+/* Estilos generales */
 .container {
   padding: 2rem;
 }
-.item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  background: #f5f5f5;
-  padding: 1rem;
-  border-radius: 8px;
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
 }
-button {
-  margin-left: 1rem;
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+/* Botón eliminar reserva dentro de la tarjeta */
+.deleteBtn {
+  width: 100%;
+  background: #e53935;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+  margin: 0;
+}
+.deleteBtn:hover {
+  background: #b71c1c;
 }

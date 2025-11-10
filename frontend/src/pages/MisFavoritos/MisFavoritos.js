@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { userContext } from '../../context/UserContext';
 import style from './MisFavoritos.module.css';
+import Product from '../../components/Product/Product';
 
 const MisFavoritos = () => {
   const { userInfo } = useContext(userContext);
@@ -35,8 +36,7 @@ const MisFavoritos = () => {
   }, [userInfo]);
 
   const eliminarFavorito = (id) => {
-  fetch(`/favorites/delete/${id}`, { method: 'DELETE' })
-      .then(() => setFavoritos(favoritos.filter(f => f.id !== id)));
+    setFavoritos(favoritos.filter(f => f.id !== id));
   };
 
   if (loading) return <div>Cargando favoritos...</div>;
@@ -47,15 +47,30 @@ const MisFavoritos = () => {
       {favoritos.length === 0 ? (
         <p>No tienes productos favoritos.</p>
       ) : (
-        <ul>
+        <div className={style.cardsContainer}>
           {favoritos.map(fav => (
-            <li key={fav.id} className={style.item}>
-              <span>Producto: {fav.productName}</span>
-              <button onClick={() => eliminarFavorito(fav.id)}>Eliminar</button>
-              <button onClick={() => window.location.href = `/product/${fav.productId}`}>Ver</button>
-            </li>
+            <div key={fav.id} className={style.cardWrapper}>
+              <Product
+                id={fav.product.id}
+                imgUrl={fav.product.image || fav.product.images || []}
+                category={fav.product.category}
+                title={fav.product.name || fav.product.title}
+                description={fav.product.description}
+                location={fav.product.city}
+                address={fav.product.address}
+                attributes={fav.product.attributes}
+                latitude={fav.product.latitude}
+                longitude={fav.product.longitude}
+                policiesSite={fav.product.policiesSite}
+                policiesSecurityAndHealth={fav.product.policiesSecurityAndHealth}
+                policiesCancellation={fav.product.policiesCancellation}
+                averageScore={fav.product.average_score || fav.product.averageScore}
+                favoriteId={fav.id}
+                onFavoriteRemove={() => eliminarFavorito(fav.id)}
+              />
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

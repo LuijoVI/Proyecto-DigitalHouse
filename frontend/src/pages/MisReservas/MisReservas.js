@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { userContext } from '../../context/UserContext';
 import style from './MisReservas.module.css';
+import Product from '../../components/Product/Product';
 
 const MisReservas = () => {
   const { userInfo } = useContext(userContext);
@@ -47,15 +48,37 @@ const MisReservas = () => {
       {reservas.length === 0 ? (
         <p>No tienes reservaciones.</p>
       ) : (
-        <ul>
+        <div className={style.cardsContainer}>
           {reservas.map(reserva => (
-            <li key={reserva.id} className={style.item}>
-              <span>Reserva #{reserva.id} - {reserva.productName}</span>
-              <button onClick={() => eliminarReserva(reserva.id)}>Eliminar</button>
-              <button onClick={() => window.location.href = `/reservations/${reserva.id}`}>Ver</button>
-            </li>
+            <div key={reserva.id} className={style.cardWrapper}>
+              <Product
+                id={reserva.product.id}
+                imgUrl={reserva.product.image || reserva.product.images || []}
+                category={reserva.product.category}
+                title={reserva.product.name || reserva.product.title}
+                description={reserva.product.description}
+                location={reserva.product.city}
+                address={reserva.product.address}
+                attributes={reserva.product.attributes}
+                latitude={reserva.product.latitude}
+                longitude={reserva.product.longitude}
+                policiesSite={reserva.product.policiesSite}
+                policiesSecurityAndHealth={reserva.product.policiesSecurityAndHealth}
+                policiesCancellation={reserva.product.policiesCancellation}
+                averageScore={reserva.product.average_score || reserva.product.averageScore}
+                renderDeleteButton={() => (
+                  <button
+                    className={style.deleteBtn}
+                    style={{ width: '100%', marginTop: '8px' }}
+                    onClick={() => eliminarReserva(reserva.id)}
+                  >
+                    Eliminar reserva
+                  </button>
+                )}
+              />
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
