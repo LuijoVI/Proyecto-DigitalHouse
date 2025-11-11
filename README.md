@@ -25,8 +25,7 @@ Proyecto-DigitalHouse/
 │   ├── JUNIT/
 │   ├── *.side
 │   └── *.postman_collection.json
-│
-└── qodana.yaml      # Configuración de análisis estático
+|
 ```
 
 ## Tecnologías utilizadas
