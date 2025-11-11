@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { userContext } from '../../context/UserContext';
 import { Link } from 'react-router-dom';
 import style from './Product.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,11 +19,98 @@ const Product = ({
   location,
   attributes,
   averageScore,
+  favoriteId,
+  onFavoriteRemove,
+  renderDeleteButton,
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [internalFavoriteId, setInternalFavoriteId] = useState(favoriteId || null);
+  const { userInfo } = useContext(userContext);
 
-  const handleAddFavorite = () => {
-    isFavorite ? setIsFavorite(false) : setIsFavorite(true);
+  // Consultar si el producto es favorito al montar el componente
+  React.useEffect(() => {
+    if (favoriteId) {
+      setIsFavorite(true);
+      setInternalFavoriteId(favoriteId);
+    } else if (userInfo && userInfo.id) {
+      fetch(`/favorites/user/${userInfo.id}`)
+        .then(res => res.ok ? res.json() : [])
+        .then(data => {
+          const fav = data.find(f => f.productId === id || (f.product && f.product.id === id));
+          if (fav) {
+            setIsFavorite(true);
+            setInternalFavoriteId(fav.id);
+            console.log('Product: producto es favorito, id:', fav.id);
+          } else {
+            setIsFavorite(false);
+            setInternalFavoriteId(null);
+            console.log('Product: producto no es favorito');
+          }
+        })
+        .catch(err => {
+          console.error('Product: error al consultar favoritos:', err);
+        });
+    }
+  }, [userInfo, id, favoriteId]);
+
+  const handleAddFavorite = async () => {
+    if (!userInfo || !userInfo.id) {
+      console.log('Product: usuario no logueado, no se puede agregar/eliminar favorito');
+      return;
+    }
+    if (!isFavorite) {
+      // Agregar favorito
+      console.log('Product: intentando agregar favorito');
+      console.log('Product: userId:', userInfo.id);
+      console.log('Product: productId:', id);
+      try {
+        const res = await fetch('/favorites/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user: { id: userInfo.id }, product: { id } })
+        });
+        if (!res.ok) {
+          console.error('Product: error al agregar favorito:', res.status);
+        } else {
+          const data = await res.json();
+          setIsFavorite(true);
+          setInternalFavoriteId(data.id);
+          console.log('Product: favorito agregado correctamente, id:', data.id);
+          // Actualizar estado tras agregar favorito
+          fetch(`/favorites/user/${userInfo.id}`)
+            .then(res => res.ok ? res.json() : [])
+            .then(data => {
+              const fav = data.find(f => f.productId === id || (f.product && f.product.id === id));
+              if (fav) {
+                setIsFavorite(true);
+                setInternalFavoriteId(fav.id);
+              }
+            });
+        }
+      } catch (err) {
+        console.error('Product: error de red al agregar favorito:', err);
+      }
+    } else {
+      // Eliminar favorito
+      if (!internalFavoriteId) {
+        console.error('Product: no se encontró el id del favorito para eliminar');
+        return;
+      }
+      console.log('Product: eliminando favorito con id', internalFavoriteId);
+      try {
+        const res = await fetch(`/favorites/delete/${internalFavoriteId}`, { method: 'DELETE' });
+        if (!res.ok) {
+          console.error('Product: error al eliminar favorito:', res.status);
+        } else {
+          setIsFavorite(false);
+          setInternalFavoriteId(null);
+          console.log('Product: favorito eliminado correctamente');
+          if (onFavoriteRemove) onFavoriteRemove();
+        }
+      } catch (err) {
+        console.error('Product: error de red al eliminar favorito:', err);
+      }
+    }
   };
 
   const textScore = (rating) => {
@@ -56,7 +144,11 @@ const Product = ({
           className={style.productFavorite}
           icon={!isFavorite ? faHeartRegular : faHeart}
         />
-        <img className={style.productImage} src={imgUrl[0]?.url} alt={title} />
+        <img
+          className={style.productImage}
+          src={Array.isArray(imgUrl) && imgUrl[0] ? imgUrl[0].url : '/assets/default.jpg'}
+          alt={title}
+        />
       </div>
       <div className={style.cardDetails}>
         <div className={style.row1}>
@@ -94,9 +186,12 @@ const Product = ({
         </div>
 
         <p className={style.productDescription}>{description}</p>
-        <Link to={`/products/${id}`} className={`btn btn2 w-100`}>
-          Ver detalle
-        </Link>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
+          <Link to={`/products/${id}`} className={`btn btn2 w-100`}>
+            Ver detalle
+          </Link>
+          {typeof renderDeleteButton === 'function' ? renderDeleteButton() : null}
+        </div>
       </div>
     </div>
   );

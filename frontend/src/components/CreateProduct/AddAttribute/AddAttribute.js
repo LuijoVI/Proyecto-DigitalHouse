@@ -6,9 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import style from '../CreateProduct.module.css';
 import Input from '../../Forms/Input/Input';
 
-const AddAttribute = ({ getAttributes }) => {
+const AddAttribute = ({ getAttributes, initialAttributes = [] }) => {
   const [arrayGetAttributes, setArrayGetAttributes] = useState([]);
-  const [arrayAttributes, setArrayAttributes] = useState([]);
+  const [arrayAttributes, setArrayAttributes] = useState(initialAttributes);
+  useEffect(() => {
+    setArrayAttributes(initialAttributes);
+  }, [initialAttributes]);
   const [selectedAttribute, setSelectedAttribute] = useState('');
   const [showCustomInput, setShowCustomInput] = useState(false);
   const [attributeName, setAttributeName] = useState({ value: '', valid: null });

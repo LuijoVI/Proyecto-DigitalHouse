@@ -64,7 +64,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // Mantener protección para administración de atributos
                 .antMatchers("/attributes/**").hasAuthority("ADMIN")
                 /* USER */
-                .antMatchers("/reservations/create").hasAuthority("USER")
+                .antMatchers("/reservations/create").hasAnyAuthority("USER", "ADMIN")
                 /* ADMIN */
                 .antMatchers("/cities/create", "/cities/update", "/cities/delete/{id}").hasAuthority("ADMIN")
                 .antMatchers("/products/create", "/products/update", "/products/delete/{id}").hasAuthority("ADMIN")

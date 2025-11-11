@@ -1,0 +1,31 @@
+/* Estilos generales */
+.container {
+  padding: 2rem;
+}
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+/* Botón eliminar reserva dentro de la tarjeta */
+.deleteBtn {
+  width: 100%;
+  background: #e53935;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+  margin: 0;
+}
+.deleteBtn:hover {
+  background: #b71c1c;
+}

@@ -31,6 +31,8 @@ const CreateProduct = () => {
   const [sitePolicy, setSitePolicy] = useState(null);
   const [healthAndSafetyPolicy, setHealtAndSafetyPolicy] = useState(null);
   const [cancellationPolicy, setCancellationPolicy] = useState(null);
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
   const [msgErrorImages, setMsgErrorImages] = useState(false);
 
   //console.log(arrayImages);
@@ -250,8 +252,8 @@ const CreateProduct = () => {
           short_description: 'prueba',
           active: false,
           address: address.value,
-          latitude: '-37.9702777',
-          longitude: '-57.5955626',
+          latitude: latitude,
+          longitude: longitude,
           area: '150',
           average_score: 5.0,
           city: {
@@ -311,6 +313,24 @@ const CreateProduct = () => {
               isLocationIcon={false}
               isOptionTextInTwoLines={false}
               getValue={setCategory}
+            />
+          </div>
+          <div className={style.doubleProperty}>
+            <Input
+              state={{ value: latitude, valid: null }}
+              changeState={val => setLatitude(val.value)}
+              label="Latitud"
+              id="latitude"
+              name="latitude"
+              placeholder="Ej: -37.9702777"
+            />
+            <Input
+              state={{ value: longitude, valid: null }}
+              changeState={val => setLongitude(val.value)}
+              label="Longitud"
+              id="longitude"
+              name="longitude"
+              placeholder="Ej: -57.5955626"
             />
           </div>
           <div className={style.doubleProperty}>
