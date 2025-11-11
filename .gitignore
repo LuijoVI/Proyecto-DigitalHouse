@@ -7,3 +7,4 @@ WIKI.md
 /.idea
 frontend/src/utils/s3Upload.js
 backend/digitalbooking/src/main/resources/application.properties
+qodana.yaml
