@@ -46,7 +46,6 @@ Proyecto-DigitalHouse/
 - Spring Security
 - MySQL
 - JWT (Json Web Token)
-- AWS SDK para S3
 - Swagger (documentación de API)
 
 ### Testing
