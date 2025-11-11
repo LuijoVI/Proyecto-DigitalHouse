@@ -2,3 +2,4 @@ WIKI.md
 .gitlab-ci.primeryml.txt
 /.idea
 frontend/src/utils/s3Upload.js
+qodana.yaml

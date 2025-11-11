@@ -6,7 +6,6 @@ import com.grupo9.digitalbooking.model.Image;
 import com.grupo9.digitalbooking.model.Product;
 import com.grupo9.digitalbooking.response.ApiResponseHandler;
 import com.grupo9.digitalbooking.services.ProductService;
-import com.grupo9.digitalbooking.services.S3Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,94 +30,139 @@ public class ProductController {
     @Autowired
     private ProductService prodctService;
 
-    @Autowired
-    private S3Service s3Service;
-
     @GetMapping
-    public ResponseEntity<List<Product>> listarProductos(){
-        return ResponseEntity.ok(prodctService.getAllProducts());
+    public ResponseEntity<?> listarProductos(){
+        try {
+            List<Product> productos = prodctService.getAllProducts();
+            return ResponseEntity.ok(productos);
+        } catch (Exception e) {
+            return ApiResponseHandler.generateResponseError("Error interno al listar productos", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @ApiOperation(value="Product by ID", notes="Product by ID")
     @GetMapping("/{id}")
-    public ResponseEntity<Object> buscarProducto(@PathVariable Integer id)  {
-        Optional<Product> productoBuscado = prodctService.getProductById(id);
-        if(productoBuscado.isPresent())
-            return ApiResponseHandler.generateResponse("Product data retrieved successfully", HttpStatus.OK, productoBuscado.get());
-
-        return ApiResponseHandler.generateResponseError("Product "+ id + " not found", HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> buscarProducto(@PathVariable Integer id)  {
+        try {
+            Optional<Product> productoBuscado = prodctService.getProductById(id);
+            if(productoBuscado.isPresent())
+                return ApiResponseHandler.generateResponse("Producto encontrado", HttpStatus.OK, productoBuscado.get());
+            return ApiResponseHandler.generateResponseError("Producto con ID "+ id + " no encontrado", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return ApiResponseHandler.generateResponseError("Error interno al buscar producto", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/category/{id}")
-    public ResponseEntity<List<Product>> searchProductByCategory(@PathVariable Category id) {
-        List<Product> productsSearch = prodctService.getProductsByCategory(id);
-         if(!productsSearch.isEmpty()){
-            return ResponseEntity.ok(productsSearch);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<?> searchProductByCategory(@PathVariable Category id) {
+        try {
+            List<Product> productsSearch = prodctService.getProductsByCategory(id);
+            if(!productsSearch.isEmpty()){
+                return ResponseEntity.ok(productsSearch);
+            } else {
+                return ApiResponseHandler.generateResponseError("No se encontraron productos para la categoría", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return ApiResponseHandler.generateResponseError("Error interno al buscar productos por categoría", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Product> crearProducto(@RequestBody Product product){
-        return ResponseEntity.ok(prodctService.saveProduct(product));
+    public ResponseEntity<?> crearProducto(@RequestBody Product product){
+        try {
+            if (product == null || product.getName() == null || product.getCategory() == null || product.getCity() == null) {
+                return ApiResponseHandler.generateResponseError("Datos de producto incompletos", HttpStatus.BAD_REQUEST);
+            }
+            Product creado = prodctService.saveProduct(product);
+            return ResponseEntity.status(HttpStatus.CREATED).body(creado);
+        } catch (Exception e) {
+            return ApiResponseHandler.generateResponseError("Error interno al crear producto", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<?> editarProducto(@PathVariable Integer id, @RequestBody Product product) {
-        Optional<Product> productoBuscado = prodctService.getProductById(id);
-        if (productoBuscado.isPresent()) {
-            // Actualizar el producto usando el id recibido por la URL
-            product.setId(id); // Asegura que el id del producto sea el correcto
-            prodctService.updateProduct(product);
-            return ResponseEntity.ok("Se actualizó el producto con ID: " + id);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El producto con ID: " + id + " no se encuentra");
+        try {
+            if (product == null) {
+                return ApiResponseHandler.generateResponseError("Datos de producto no enviados", HttpStatus.BAD_REQUEST);
+            }
+            Optional<Product> productoBuscado = prodctService.getProductById(id);
+            if (productoBuscado.isPresent()) {
+                product.setId(id);
+                prodctService.updateProduct(product);
+                return ApiResponseHandler.generateResponse("Producto actualizado", HttpStatus.OK, product);
+            } else {
+                return ApiResponseHandler.generateResponseError("Producto con ID: " + id + " no encontrado", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return ApiResponseHandler.generateResponseError("Error interno al actualizar producto", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> eliminarProducto(@PathVariable Integer id){
-        if(prodctService.getProductById(id).isPresent()){
-            prodctService.deleteProductById(id);
-            return ResponseEntity.ok("Se eliminó con éxito el producto con ID: " + id);
+    public ResponseEntity<?> eliminarProducto(@PathVariable Integer id){
+        try {
+            if(prodctService.getProductById(id).isPresent()){
+                prodctService.deleteProductById(id);
+                return ApiResponseHandler.generateResponse("Producto eliminado", HttpStatus.OK, null);
+            }
+            return ApiResponseHandler.generateResponseError("Producto con ID: " + id + " no encontrado", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return ApiResponseHandler.generateResponseError("Error interno al eliminar producto", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el producto con ID: " + id);
     }
 
     @GetMapping("/city/{id}")
-    public ResponseEntity<List<Product>> searchProductByCategory(@PathVariable City id) {
-        List<Product> productsSearch = prodctService.getProductsByCity(id);
-        if(!productsSearch.isEmpty()){
-            return ResponseEntity.ok(productsSearch);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<?> searchProductByCategory(@PathVariable City id) {
+        try {
+            List<Product> productsSearch = prodctService.getProductsByCity(id);
+            if(!productsSearch.isEmpty()){
+                return ResponseEntity.ok(productsSearch);
+            } else {
+                return ApiResponseHandler.generateResponseError("No se encontraron productos para la ciudad", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return ApiResponseHandler.generateResponseError("Error interno al buscar productos por ciudad", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/dates/{startDate}/{endDate}")
-    public ResponseEntity<List<Product>> searchProductsByRangeDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
-        List<Product> productsSearch = prodctService.getProductsByRangeDate(startDate, endDate);
-        if(!productsSearch.isEmpty()){
-            return ResponseEntity.ok(productsSearch);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<?> searchProductsByRangeDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
+        try {
+            List<Product> productsSearch = prodctService.getProductsByRangeDate(startDate, endDate);
+            if(!productsSearch.isEmpty()){
+                return ResponseEntity.ok(productsSearch);
+            } else {
+                return ApiResponseHandler.generateResponseError("No se encontraron productos en el rango de fechas", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return ApiResponseHandler.generateResponseError("Error interno al buscar productos por fechas", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/cityAndDates/{cityId}/{startDate}/{endDate}")
-    public ResponseEntity<List<Product>> searchProductsByRangeDate(@PathVariable Integer cityId, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
-        List<Product> productsSearch = prodctService.getProductsByCityAndRangeDate(cityId, startDate, endDate);
-        if(!productsSearch.isEmpty()){
-            return ResponseEntity.ok(productsSearch);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<?> searchProductsByRangeDate(@PathVariable Integer cityId, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
+        try {
+            List<Product> productsSearch = prodctService.getProductsByCityAndRangeDate(cityId, startDate, endDate);
+            if(!productsSearch.isEmpty()){
+                return ResponseEntity.ok(productsSearch);
+            } else {
+                return ApiResponseHandler.generateResponseError("No se encontraron productos para la ciudad y rango de fechas", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return ApiResponseHandler.generateResponseError("Error interno al buscar productos por ciudad y fechas", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping("findAll/random")
-    public ResponseEntity<List<Product>> findAllRandom(){
-        return ResponseEntity.ok(prodctService.getRandomProduct());
+    public ResponseEntity<?> findAllRandom(){
+        try {
+            List<Product> productos = prodctService.getRandomProduct();
+            return ResponseEntity.ok(productos);
+        } catch (Exception e) {
+            return ApiResponseHandler.generateResponseError("Error interno al obtener productos aleatorios", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping(value = "/create-with-images", consumes = {"multipart/form-data"})
