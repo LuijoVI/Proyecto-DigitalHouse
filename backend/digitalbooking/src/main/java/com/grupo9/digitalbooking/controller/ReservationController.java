@@ -58,11 +58,19 @@ public class ReservationController  {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Reservation reservation)  {
-        User user = userRepository.findById(reservation.getUser().getId()).orElse(null);
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El Usuario no se encuentra debe Ingresar o Registrarse  para poder hacer una reserva ");
-        } else {
-            return ResponseEntity.ok(reservationService.saveReservation(reservation));
+        try {
+            if (reservation.getArrival_time() == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El campo 'arrival_time' es obligatorio y no puede ser nulo.");
+            }
+            User user = userRepository.findById(reservation.getUser().getId()).orElse(null);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El Usuario no se encuentra debe Ingresar o Registrarse  para poder hacer una reserva ");
+            } else {
+                return ResponseEntity.ok(reservationService.saveReservation(reservation));
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Log en consola
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al crear la reserva: " + e.getMessage());
         }
     }
 

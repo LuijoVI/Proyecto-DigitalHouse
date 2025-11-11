@@ -149,8 +149,11 @@
   }
 
   .btnGroup {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
   }
 
   .menuBody {

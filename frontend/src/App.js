@@ -1,3 +1,5 @@
+import MisReservas from './pages/MisReservas/MisReservas';
+import MisFavoritos from './pages/MisFavoritos/MisFavoritos';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Footer from './components/Footer/Footer';
@@ -12,7 +14,8 @@ import DateRangeProvider from './context/DateRangeContext';
 import ProductBooking from './pages/ProductBooking/ProductBooking';
 import BookingSucces from './components/BookingSuccess/BookingSucces';
 import NotFound from './pages/NotFound/NotFound';
-import Administration from './pages/Administration/Administration';
+import AdminRoute from './components/ProtectedRoutes/AdminRoute';
+import AdminDashboardRoutes from './pages/AdminDashboard/AdminDashboardRoutes';
 import NewProductSuccessful from './components/NewProductSuccessful/NewProductSuccessful';
 
 function App() {
@@ -35,7 +38,15 @@ function App() {
               />
               <Route path="/product/:id/booking" element={<ProductBooking />} />
               <Route path="/booking/success" element={<BookingSucces />} />
-              <Route path="/administration" element={<Administration />} />
+              
+              {/* Dashboard de administración CRUD */}
+              <Route path="/admin/*" element={
+                <AdminRoute>
+                  <AdminDashboardRoutes />
+                </AdminRoute>
+              } />
+              <Route path="/mis-reservas" element={<MisReservas />} />
+              <Route path="/mis-favoritos" element={<MisFavoritos />} />
               <Route
                 path="/successful-new-product"
                 element={<NewProductSuccessful />}

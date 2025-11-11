@@ -21,7 +21,8 @@ const Calendar = ({ inline, reserved }) => {
     dateRangeCapture(dateRange);
   });
 
-  const dateBooking = reserved?.map((booking) => {
+  const reservedArray = Array.isArray(reserved) ? reserved : [];
+  const dateBooking = reservedArray.map((booking) => {
     return {
       start: new Date(booking.check_in_date),
       end: new Date(booking.checkout_date),

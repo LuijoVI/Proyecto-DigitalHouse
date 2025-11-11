@@ -51,7 +51,9 @@ const Menu = () => {
               )}
             </div>
           ) : (
-            <>
+            <div className={style.btnGroup}>
+              <Link to="/mis-reservas" className="btn btn1">Mis Reservas</Link>
+              <Link to="/mis-favoritos" className="btn btn2">Mis Favoritos</Link>
               <button
                 className={style.closeMenu}
                 onClick={() => {
@@ -63,7 +65,7 @@ const Menu = () => {
                 <FontAwesomeIcon icon={faXmark} />
               </button>
               <Avatar />
-            </>
+            </div>
           )}
         </div>
       </div>
