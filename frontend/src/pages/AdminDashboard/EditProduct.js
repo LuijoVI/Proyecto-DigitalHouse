@@ -31,15 +31,20 @@ const EditProduct = () => {
     const [error, setError] = useState(null);
     const [shortDescription, setShortDescription] = useState('');
     const [active, setActive] = useState(false);
-    const [latitude, setLatitude] = useState('');
-    const [longitude, setLongitude] = useState('');
-    const [area, setArea] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
+  const [area, setArea] = useState('');
 
   useEffect(() => {
+    console.log('[Edición Producto] Iniciando recuperación de datos para producto con id:', id);
     fetch(`/products/${id}`)
-      .then((res) => res.json())
+      .then((res) => {
+        console.log('[Edición Producto] Respuesta recibida del backend:', res.status);
+        return res.json();
+      })
       .then((data) => {
         const prod = data.data || data;
+        console.log('[Edición Producto] Datos del producto recuperados:', prod);
         setPropertyName({ value: prod.name || '', valid: true });
         setCategory(prod.category || null);
         setAddress({ value: prod.address || '', valid: true });
@@ -49,15 +54,20 @@ const EditProduct = () => {
         setSitePolicy(prod.policiesSite || '');
         setHealtAndSafetyPolicy(prod.policiesSecurityAndHealth || '');
         setCancellationPolicy(prod.policiesCancellation || '');
-        // Recuperar y asignar otros campos relevantes si existen
         setShortDescription(prod.short_description || '');
         setActive(prod.active !== undefined ? prod.active : false);
-        setLatitude(prod.latitude || '');
-        setLongitude(prod.longitude || '');
+  setLatitude(prod.latitude || '');
+  setLongitude(prod.longitude || '');
         setArea(prod.area || '');
         setLoading(false);
+        console.log('[Edición Producto] Estados inicializados correctamente');
+        setLatitude(prod.latitude || '');
+        setLongitude(prod.longitude || '');
       })
-      .catch(() => setError('No se pudo cargar el producto'));
+      .catch((err) => {
+        console.error('[Edición Producto] Error al recuperar el producto:', err);
+        setError('No se pudo cargar el producto');
+      });
   }, [id]);
 
   useEffect(() => {
@@ -75,23 +85,35 @@ const EditProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updatedProduct = {
-      id,
       name: propertyName.value,
       description,
       address: address.value,
       city,
       category,
+      latitude,
+      longitude,
       attributes: arrayAttributes,
       policiesSite: sitePolicy,
       policiesSecurityAndHealth: healthAndSafetyPolicy,
       policiesCancellation: cancellationPolicy,
     };
-    await fetch(`/products`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedProduct),
-    });
-    navigate('/admin/products');
+    console.log('[Edición Producto] Enviando datos al backend:', updatedProduct);
+    try {
+      const response = await fetch(`/products/update/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedProduct),
+      });
+      console.log('[Edición Producto] Respuesta del backend al actualizar:', response.status);
+      if (response.ok) {
+        console.log('[Edición Producto] Producto actualizado correctamente');
+        navigate('/admin/products');
+      } else {
+        console.error('[Edición Producto] Error al actualizar el producto:', response.status);
+      }
+    } catch (err) {
+      console.error('[Edición Producto] Error en la petición de actualización:', err);
+    }
   };
 
   if (loading) return <p>Cargando...</p>;
@@ -105,7 +127,7 @@ const EditProduct = () => {
         <section className={styles.initialDataProperty}>
           <div className={styles.doubleProperty}>
             <Input
-              state={propertyName}
+              state={{ ...propertyName, valid: propertyName.valid === true ? 'true' : propertyName.valid === false ? 'false' : propertyName.valid }}
               changeState={setPropertyName}
               label="Nombre de la propiedad"
               id="propertyName"
@@ -121,11 +143,30 @@ const EditProduct = () => {
               isOptionTextInTwoLines={false}
               getValue={setCategory}
               value={category}
+              selectedOption={category}
             />
           </div>
           <div className={styles.doubleProperty}>
             <Input
-              state={address}
+              state={{ value: latitude, valid: null }}
+              changeState={val => setLatitude(val.value)}
+              label="Latitud"
+              id="latitude"
+              name="latitude"
+              placeholder="Ej: -37.9702777"
+            />
+            <Input
+              state={{ value: longitude, valid: null }}
+              changeState={val => setLongitude(val.value)}
+              label="Longitud"
+              id="longitude"
+              name="longitude"
+              placeholder="Ej: -57.5955626"
+            />
+          </div>
+          <div className={styles.doubleProperty}>
+            <Input
+              state={{ ...address, valid: address.valid === true ? 'true' : address.valid === false ? 'false' : address.valid }}
               changeState={setAddress}
               label="Dirección"
               id="address"
@@ -141,20 +182,23 @@ const EditProduct = () => {
               isOptionTextInTwoLines={false}
               getValue={setCity}
               value={city}
+              selectedOption={city}
             />
           </div>
           <TextArea
-            state={description}
+            state={{ value: description }}
             label={'Descripción'}
-            changeState={setDescription}
+            changeState={val => setDescription(val.value)}
             placeholder={'Escriba aquí'}
             name={'descriptionProperty'}
+            value={description}
+            initialValue={description}
           />
         </section>
         {/* Sección de atributos */}
         <section className={styles.containerAttributes}>
           <h2>Agregar atributos</h2>
-          <AddAttribute getAttributes={setArrayAttributes} value={arrayAttributes} />
+          <AddAttribute getAttributes={setArrayAttributes} value={arrayAttributes} initialAttributes={arrayAttributes} />
         </section>
         {/* Sección de políticas */}
         <section className={styles.containerPolicies}>
@@ -165,18 +209,21 @@ const EditProduct = () => {
               getValuePolicy={setSitePolicy}
               name={'sitePolicy'}
               value={sitePolicy}
+              initialValue={sitePolicy}
             />
             <AddPolicy
               titlePolicy={'Salud y seguridad'}
               getValuePolicy={setHealtAndSafetyPolicy}
               name={'healthAndSafetyPolicy'}
               value={healthAndSafetyPolicy}
+              initialValue={healthAndSafetyPolicy}
             />
             <AddPolicy
               titlePolicy={'Política de cancelación'}
               getValuePolicy={setCancellationPolicy}
               name={'cancellationPolicy'}
               value={cancellationPolicy}
+              initialValue={cancellationPolicy}
             />
           </div>
         </section>

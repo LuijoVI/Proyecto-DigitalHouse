@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronDown,
@@ -15,9 +15,17 @@ const SelectCity2 = ({
   isLocationIcon,
   isOptionTextInTwoLines,
   getValue,
+  value,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(value || null);
+
+  // Sincronizar el valor seleccionado si cambia el prop 'value'
+  useEffect(() => {
+    if (value && (!selectedOption || selectedOption.id !== value.id)) {
+      setSelectedOption(value);
+    }
+  }, [value]);
 
   /* */
   const ref = useRef();

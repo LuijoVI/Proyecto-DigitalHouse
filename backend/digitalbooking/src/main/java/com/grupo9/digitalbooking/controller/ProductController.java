@@ -65,14 +65,16 @@ public class ProductController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/update")
-    public ResponseEntity<?> editarProducto(@RequestBody Product product) {
-        Optional<Product> productoBuscado = prodctService.getProductById(product.getId());
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> editarProducto(@PathVariable Integer id, @RequestBody Product product) {
+        Optional<Product> productoBuscado = prodctService.getProductById(id);
         if (productoBuscado.isPresent()) {
+            // Actualizar el producto usando el id recibido por la URL
+            product.setId(id); // Asegura que el id del producto sea el correcto
             prodctService.updateProduct(product);
-            return ResponseEntity.ok("Se actualizó el producto con ID: " + product.getId());
+            return ResponseEntity.ok("Se actualizó el producto con ID: " + id);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El producto con ID: " + product.getId() + " no se encuentra");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El producto con ID: " + id + " no se encuentra");
         }
     }
 
